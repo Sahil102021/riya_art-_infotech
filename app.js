@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 let mongoose = require("mongoose");
 
-MONGODB_CONECT_URL =
+let MONGODB_CONECT_URL =
   "mongodb+srv://sahilramani2021:sahil@cluster0.afec6.mongodb.net/Riya_Art_Infotech";
 mongoose
   .connect(MONGODB_CONECT_URL, {
