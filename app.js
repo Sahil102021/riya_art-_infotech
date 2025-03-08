@@ -4,6 +4,15 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 let mongoose = require("mongoose");
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var main_form = require("./routes/main_form");
+var portfolioRouter = require("./routes/portfolio");
+var cors = require("cors");
+
+
+
+
 
 let MONGODB_CONECT_URL =
   "mongodb+srv://sahilramani2021:sahil@cluster0.afec6.mongodb.net/Riya_Art_Infotech";
@@ -17,11 +26,7 @@ mongoose
   .then(() => console.log("Connected!"))
   .catch((err) => console.log(err.message));
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var main_form = require("./routes/main_form");
-var portfolioRouter = require("./routes/portfolio");
-var cors = require("cors");
+  
 
 var app = express();
 
