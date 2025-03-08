@@ -1,13 +1,16 @@
 let MAINFORM = require("../model/main_form");
+let Sendmaile = require("../middle/nodemailer");
 
 
 exports.Create = async function (req, res) {
   try {
-    console.log(req.user);
-    console.log(req.body);
+    // console.log(req.user);
+    // console.log(req.body);
     req.body.user = req.user;
-    let copyData = await MAINFORM.create(req.body);
 
+    let copyData = await MAINFORM.create(req.body);
+    console.log(req.body.email);
+    Sendmaile.sendEmail(req.body.email)
     res.status(200).json({
       data: copyData,
       status: "200 done",
@@ -23,9 +26,10 @@ exports.Create = async function (req, res) {
 
 exports.Create1 = async function (req, res) {
   try {
-    console.log(req.body);
+    //console.log(req.body);
     let copyData = await MAINFORM.create(req.body);
-
+    console.log(req.body.email);
+    Sendmaile.sendEmail(req.body.email)
     res.status(200).json({
       data: copyData,
       status: "200 done",

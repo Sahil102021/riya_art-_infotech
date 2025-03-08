@@ -1,38 +1,7 @@
 let USER = require("../model/users");
 let jwt = require("jsonwebtoken");
 let bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // true for port 465, false for other ports
-  auth: {
-    user: "sahilramani2021@gmail.com",
-    pass: "ktnvgqmszztjedqe", // Use environment variables instead
-  },
-});
-
-async function main(mail) {
-  try {
-    console.log(`Sending email to: ${mail}`);
-
-    const info = await transporter.sendMail({
-      from: "sahilramani2021@gmail.com", // Sender address
-      to: mail, // Recipient email
-      subject: "Welcome to the interview question preparation", // Subject line
-      text: "Interview questions", // Plain text body
-      html: `<h1 style="color: red; text-align: center;">interview question signup successfully</h1>
-                   <br/>
-                   <p style="color: blue; font-style: italic;">read all the detail inteview question portal</p>`, // HTML body
-    });
-
-    console.log("Message sent: %s", info.messageId);
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
-}
-
+let sendEmail = require("../middle/nodemailer");
 exports.Secure = async function (req, res, next) {
   try {
     let token = req.headers.authorization;
@@ -69,7 +38,7 @@ exports.Signup = async function (req, res, next) {
     let userData = await USER.create({ ...req.body, password: passwordHash });
     let token = jwt.sign({ id: userData._id }, "USER-TEST");
 
-    main(email).catch(console.error);
+    sendEmail.sendEmail(email);
 
     res.status(200).json({
       data: userData,
